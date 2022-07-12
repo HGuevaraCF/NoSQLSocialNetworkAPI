@@ -13,4 +13,12 @@ const reactionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
     }
-})
+// },
+// {
+//     toJSON: {
+//       getters: true,
+//     },
+//     id: false,
+});
+
+module.exports = reactionSchema;

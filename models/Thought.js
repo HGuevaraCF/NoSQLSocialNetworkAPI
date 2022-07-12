@@ -11,10 +11,27 @@ const thoughtSchema = new mongoose.Schema({
         type: Date,
     },
     username: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    }
+    },
+    reactions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Reactions'
+        },
+    ],
+},
+{
+    toJSON: {
+        virtuals: true,
+    },
+    id: false,
 });
+
+//Virtual that retrieves the length of the thought´s reactions array
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+})
 
 const Thought = mongoose.model('Thought', thoughtSchema);
 const handleError = (error) => console.log(error);
