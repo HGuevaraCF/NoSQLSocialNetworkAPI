@@ -25,10 +25,20 @@ const userSchema = new mongoose.Schema({
         }
     ],
     friends: [userSchema.Types.ObjectId],
+},
+{
+    toJSON: {
+        virtuals: true,
+    },
+    id: false,
 });
 
-const User = mongoose.model('User', userSchema);
+//Virtual that retrieves the length of the user's friends array
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
+})
 
+const User = mongoose.model('User', userSchema);
 const handleError = (error) => console.log(error);
 
 module.exports = User;
