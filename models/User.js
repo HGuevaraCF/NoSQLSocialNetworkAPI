@@ -21,10 +21,15 @@ const userSchema = new mongoose.Schema({
     thoughts: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Thought,'
+            ref: 'Thought'
         }
     ],
-    friends: [userSchema.Types.ObjectId],
+    friends: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
 },
 {
     toJSON: {

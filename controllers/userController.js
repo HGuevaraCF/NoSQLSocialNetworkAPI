@@ -3,7 +3,7 @@ const User = require ('./../models/User');
 module.exports = {
     getUsers(req, res) {
         User.find()
-        .populate('thoughts')
+        // .populate('thoughts')
         .then((users) => res.json(users))
         .catch((error) => res.status(500).json(error));
     },
@@ -34,6 +34,26 @@ module.exports = {
     deleteUser(req, res) {
         User.findOneAndDelete({_id: req.params.userId})
         .then((user) => !user ? res.status(404).json({message: 'No user with that ID'}) : res.json(user))
+        .catch((error) => res.status(500).json(error));
+    },
+
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$push: {friends: req.params.friendId}},
+            {new: true}
+        )
+        .then((user) => !user ? res.status(404).json({message: 'No user with that ID'}) : res.json("Friend added"))
+        .catch((error) => res.status(500).json(error));
+    },
+
+    deleteFriend(req, res) {
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$pull: {friends: req.params.friendId}},
+            {new: true}
+        )
+        .then((user) => !user ? res.status(404).json({message: 'No user with that ID'}) : res.json("Friend deleted"))
         .catch((error) => res.status(500).json(error));
     }
 }
