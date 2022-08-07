@@ -10,7 +10,6 @@ module.exports = {
     },
 
     getSingleThought(req, res) {
-        console.log(req.params);
         Thought.findOne({ _id: req.params.thoughtId })
             .then((thought) => !thought ? res.status(404).json({ message: 'No thought with that ID' }) : res.json(thought))
             .catch((error) => res.status(500).json(error));
@@ -46,7 +45,6 @@ module.exports = {
     },
 
     createReaction(req, res) {
-        console.log(req.params);
         Thought.findOneAndUpdate(
             {_id: req.params.thoughtId},
             {$addToSet: {reactions: req.body}},
