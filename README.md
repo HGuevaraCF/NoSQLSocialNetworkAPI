@@ -15,7 +15,7 @@ npm install
 
 ### Walktrough video
 ```md
-https://www.youtube.com/watch?v=u9Z_-zUt-9s
+https://youtu.be/H9Ey608ZwXk
 ```
 
 ### Questions
